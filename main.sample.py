@@ -12,7 +12,7 @@ A = np.array([[0, 1, 2],
               [6, 2, 4]])
 AI = np.concatenate((A, np.identity(min(A.shape))), axis=1)
 
-B = gaussian_elimination(AI, doc)
+B = gaussian_elimination(AI, delim=min(A.shape)-1, doc=doc)
 print(A)
 print(B)
 

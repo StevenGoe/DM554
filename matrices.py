@@ -3,7 +3,7 @@ from fractions import Fraction
 
 from latex import *
 
-def gaussian_elimination(A_, doc=vdoc):
+def gaussian_elimination(A_, delim=None, doc=vdoc):
     m, n = A_.shape
     l = min(m,n)
 
@@ -47,7 +47,7 @@ def gaussian_elimination(A_, doc=vdoc):
             swapped = True
 
         if swapped:
-            doc.matrix(A_old, rowops=[r"\swap{%d}{%d}" % (row, i-1)])
+            doc.matrix(A_old, delim=delim, rowops=[r"\swap{%d}{%d}" % (row, i-1)])
             matrix_arrow()
 
         if p == zero:
@@ -59,7 +59,7 @@ def gaussian_elimination(A_, doc=vdoc):
             return None
 
         if p != one:
-            doc.matrix(A, rowops=[
+            doc.matrix(A, delim=delim, rowops=[
                 r"\mult{%d}{\cdot %s}" % (row, doc.frac(Fraction(1,p)))
             ])
             matrix_arrow()
@@ -80,7 +80,7 @@ def gaussian_elimination(A_, doc=vdoc):
                 ops.append(r"\add[%s]{%d}{%d}" % (doc.frac(d), row, other_row))
 
         if len(ops) > 0:
-            doc.matrix(A_old, rowops=ops)
+            doc.matrix(A_old, delim=delim, rowops=ops)
             matrix_arrow()
 
 
@@ -102,10 +102,10 @@ def gaussian_elimination(A_, doc=vdoc):
                 ops.append(r"\add[%s]{%d}{%d}" % (doc.frac(d), row, other_row))
 
         if len(ops) > 0:
-            doc.matrix(A_old, rowops=ops)
+            doc.matrix(A_old, delim=delim, rowops=ops)
             matrix_arrow()
 
-    doc.matrix(A, delim=1)
+    doc.matrix(A, delim=delim)
 
     doc.line(r"\end{align*}")
 
