@@ -7,10 +7,25 @@ def gaussian_elimination(A_, doc=vdoc):
     m, n = A_.shape
     l = min(m,n)
 
+    count = 0
+    width = 2
+
+    def matrix_arrow():
+        nonlocal count
+        nonlocal width
+        count += 1
+        if count >= width:
+            count %= width
+            doc.line(r" \\ ")
+            doc.line(r"\rightarrow &")
+        else:
+            doc.line(r"& \rightarrow")
+
     one  = Fraction(1)
     zero = Fraction(0)
 
-    doc.line(r"\[")
+    doc.line(r"\begin{align*}")
+    doc.line(r"&")
 
     # Convert to Fraction
     A = np.array(A_, dtype=Fraction)
@@ -33,10 +48,11 @@ def gaussian_elimination(A_, doc=vdoc):
 
         if swapped:
             doc.matrix(A_old, rowops=[r"\swap{%d}{%d}" % (row, i-1)])
+            matrix_arrow()
 
         if p == zero:
             print("Matrix has a row or column of zeroes")
-            doc.line(r"\]")
+            doc.line(r"\end{align*}")
             doc.line(r"As we can see the matrix has a row")
             doc.line(r"or column of zeroes, thus we cannot proceed")
             doc.line(r"with gaussian elimination")
@@ -46,6 +62,7 @@ def gaussian_elimination(A_, doc=vdoc):
             doc.matrix(A, rowops=[
                 r"\mult{%d}{\cdot %s}" % (row, doc.frac(Fraction(1,p)))
             ])
+            matrix_arrow()
 
         # Convert pivot to 1
         A[row,:] *= Fraction(1,p) # Multiply row by scalar
@@ -62,10 +79,9 @@ def gaussian_elimination(A_, doc=vdoc):
             if d != zero:
                 ops.append(r"\add[%s]{%d}{%d}" % (doc.frac(d), row, other_row))
 
-        print(ops)
-
         if len(ops) > 0:
             doc.matrix(A_old, rowops=ops)
+            matrix_arrow()
 
 
 
@@ -87,9 +103,10 @@ def gaussian_elimination(A_, doc=vdoc):
 
         if len(ops) > 0:
             doc.matrix(A_old, rowops=ops)
+            matrix_arrow()
 
     doc.matrix(A, delim=1)
 
-    doc.line(r"\]")
+    doc.line(r"\end{align*}")
 
     return A
