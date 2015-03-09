@@ -84,7 +84,7 @@ class LatexDocument:
         for i in range(m):
             l = []
             for j in range(n):
-                l.append(str(A[i,j]))
+                l.append(self.frac(A[i,j]))
                 if j == delim:
                     l.append(r"\BAR")
             self.line(" & ".join(l) + (newline if i < m-1 else ""))
@@ -95,6 +95,13 @@ class LatexDocument:
                 self.line(s)
 
         self.line(r"\end{gmatrix}")
+
+    def frac(self, f):
+        if "/" not in str(f):
+            return str(f)
+        else:
+            sign = -1 if f < 0 else 1
+            return r"%s\frac{%d}{%d}" % ("-" if sign == -1 else "", sign * f.numerator, f.denominator)
 
     def render(self):
         preambleDict = {}
