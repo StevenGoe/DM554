@@ -7,6 +7,8 @@ def gaussian_elimination(A_, doc=vdoc):
     m, n = A_.shape
     l = min(m,n)
 
+    zero = Fraction(0)
+
     # Convert to Fraction
     A = np.array(A_, dtype=Fraction)
     for i in range(m):
@@ -17,6 +19,15 @@ def gaussian_elimination(A_, doc=vdoc):
     for col in range(l):
         row = col
         p = A[row,col]
+        i = row + 1
+        while p == zero and i < m:
+            A[[row, i],:] = A[[i, row],:]
+            p = A[row,col]
+            i += 1
+
+        if p == zero:
+            print("Matrix has a row or column of zeroes")
+            return None
 
         # Convert pivot to 1
         A[row,:] *= Fraction(1,p)
