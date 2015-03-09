@@ -3,6 +3,7 @@ import re
 import subprocess
 import os
 import errno
+import numpy as np
 
 # Version: 0.1
 
@@ -28,6 +29,25 @@ class LatexDocument:
             % Math
             \usepackage{amsmath}
             \usepackage{amssymb}
+
+            % Gaussian Elimination
+            \usepackage{gauss}
+
+            % Gauss patch
+            % http://tex.stackexchange.com/questions/146532/
+            \usepackage{etoolbox}
+            \makeatletter
+            \patchcmd\g@matrix
+            {\vbox\bgroup}
+            {\vbox\bgroup\normalbaselines}
+            {}{}
+            \makeatother
+
+            \newcommand{\BAR}{
+              \hspace{-\arraycolsep}
+              \strut\vrule
+              \hspace{-\arraycolsep}
+            }
         """)
         self.documentTemplate = self.prepareLatex(r"""
             \begin{document}
@@ -55,6 +75,26 @@ class LatexDocument:
 
     def pagebreak(self):
         self.line(r"\newpage")
+
+    def matrix(self, A, typ="b", delim=None, rowops=None):
+        m, n = A.shape
+        self.line(r"\begin{gmatrix}[%s]" % typ)
+        newline = r" \\ "
+
+        for i in range(m):
+            l = []
+            for j in range(n):
+                l.append(str(A[i,j]))
+                if j == delim:
+                    l.append(r"\BAR")
+            self.line(" & ".join(l) + (newline if i < m-1 else ""))
+
+        if rowops:
+            self.line(r"\rowops")
+            for s in rowops:
+                self.line(s)
+
+        self.line(r"\end{gmatrix}")
 
     def render(self):
         preambleDict = {}

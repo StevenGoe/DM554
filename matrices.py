@@ -9,6 +9,8 @@ def gaussian_elimination(A_, doc=vdoc):
 
     zero = Fraction(0)
 
+    doc.line(r"\[")
+
     # Convert to Fraction
     A = np.array(A_, dtype=Fraction)
     for i in range(m):
@@ -21,21 +23,24 @@ def gaussian_elimination(A_, doc=vdoc):
         p = A[row,col]
         i = row + 1
         while p == zero and i < m:
-            A[[row, i],:] = A[[i, row],:]
+            A[[row, i],:] = A[[i, row],:] # Swap rows
             p = A[row,col]
             i += 1
 
         if p == zero:
             print("Matrix has a row or column of zeroes")
+            doc.line(r"\]")
             return None
 
+        doc.matrix(A, rowops=[r"\mult{%d}{%s}" % (row, str(p))])
+
         # Convert pivot to 1
-        A[row,:] *= Fraction(1,p)
+        A[row,:] *= Fraction(1,p) # Multiply row by scalar
 
         # Create zeroes under the pivot
         for other_row in range(row+1, m):
             d = -Fraction(A[other_row, row])
-            for j in range(n):
+            for j in range(n): # Add row to another row
                 A[other_row,j] += d * A[row, j]
 
 
@@ -46,7 +51,11 @@ def gaussian_elimination(A_, doc=vdoc):
         # Create zeroes over the pivot
         for other_row in range(row):
             d = -Fraction(A[other_row, row])
-            for j in range(n):
+            for j in range(n): # Add row to another row
                 A[other_row,j] += d * A[row, j]
+
+    doc.matrix(A, delim=1)
+
+    doc.line(r"\]")
 
     return A
