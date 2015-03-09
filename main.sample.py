@@ -7,9 +7,11 @@ from matrices import *
 
 doc = LatexDocument("document")
 
-A = np.array([[3, 5, 8],
-              [9,-2, 1]])
-B = gaussian_elimination(A, doc)
+A = np.array([[3, 5],
+              [9,-2]])
+AI = np.concatenate((A, np.identity(2)), axis=1)
+
+B = gaussian_elimination(AI, doc)
 print(A)
 print(B)
 

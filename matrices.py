@@ -5,6 +5,7 @@ from latex import *
 
 def gaussian_elimination(A_, doc=vdoc):
     m, n = A_.shape
+    l = min(m,n)
 
     # Convert to Fraction
     A = np.array(A_, dtype=Fraction)
@@ -13,7 +14,7 @@ def gaussian_elimination(A_, doc=vdoc):
             A[i,j] = Fraction(A[i,j])
 
 
-    for col in range(m):
+    for col in range(l):
         row = col
         p = A[row,col]
 
@@ -28,7 +29,7 @@ def gaussian_elimination(A_, doc=vdoc):
 
 
     # Back-substitution
-    for col in range(m)[::-1]:
+    for col in range(l)[::-1]:
         row = col
 
         # Create zeroes over the pivot
