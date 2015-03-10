@@ -190,3 +190,25 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
 
     return d
 
+def cofactors(A_, doc=vdoc):
+    m, n = A_.shape
+    A = convert_matrix_decimal(A_)
+    C = convert_matrix_decimal(np.zeros((m,n)))
+    doc.line(r"\begin{align*}")
+    for i in range(m):
+        for j in range(n):
+            M = minor_matrix(A, i, j)
+            d = determinant(M)
+            C[i,j] = d
+            doc.line(r"C_{%d%d} &= " % (i+1,j+1))
+            doc.matrix(M, typ="v")
+            doc.line(r" = %s &" % doc.frac(d))
+        doc.line(r" \\ ")
+    doc.line(r"\end{align*}")
+
+    doc.line(r"\[")
+    doc.line(r"C = ")
+    doc.matrix(C)
+    doc.line(r"\]")
+
+    return C
