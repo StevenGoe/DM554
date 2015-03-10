@@ -117,3 +117,63 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
         doc.line(r"As we can see the matrix is singular.")
 
     return A
+
+def minor_matrix(A, row, col, doc=vdoc):
+    A_  = np.delete(A,  (row), axis=0)
+    A__ = np.delete(A_, (col), axis=1)
+    return A__
+
+
+def determinant(A_, index=0, axis="row", doc=vdoc):
+    m, n = A_.shape
+    if m != n:
+        print("Matrix is not square")
+        return None
+
+    # Convert to Fraction
+    A = np.array(A_, dtype=Fraction)
+    for i in range(m):
+        for j in range(n):
+            A[i,j] = Fraction(A[i,j])
+
+    if n == 2:
+        doc.line(r"\[")
+        doc.matrix(A, typ="v")
+        d = A[0,0] * A[1,1] - A[1,0] * A[0,1]
+        doc.line(r"= %d \cdot %d - %d \cdot %d" % (A[0,0], A[1,1], A[1,0], A[0,1]))
+        doc.line(r"= %d" % d)
+        doc.line(r"\]")
+        return d
+
+
+    # Cofactor expansion
+    if axis == "row":
+        line = A[:, index]
+    elif axis == "col":
+        line = A[index, :]
+    else:
+        print("Error: Invalid axis %s" % axis)
+
+    doc.line(r"\[")
+    doc.matrix(A, typ="v")
+    doc.line(r" = ")
+    
+    d = Fraction(0)
+    for i, a in enumerate(line):
+        M = minor_matrix(A, index, i)
+        dM = determinant(M)
+        sign = -1 if (index + i) % 2 == 1 else 1
+        d += sign * a * dM
+        if sign == -1:
+            sign_str = "-"
+        elif i > 0:
+            sign_str = "+"
+        else:
+            sign_str = ""
+        doc.line(r"%s%d \cdot " % (sign_str, a))
+        doc.matrix(M, typ="v")
+    doc.line(r"= %d" % d)
+
+    doc.line(r"\]")
+
+    return d
