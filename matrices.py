@@ -114,8 +114,6 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
     doc.line(r"\end{align*}")
 
     if singular:
-        print("Matrix has a row or column of zeroes")
-
         doc.line(r"As we can see the matrix is singular.")
 
     return A
