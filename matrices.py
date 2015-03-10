@@ -6,6 +6,17 @@ from latex import *
 count = 0
 width = 2
 
+def convert_matrix_decimal(A_):
+    m, n = A_.shape
+
+    # Convert to Fraction
+    A = np.array(A_, dtype=Fraction)
+    for i in range(m):
+        for j in range(n):
+            A[i,j] = Fraction(A[i,j])
+
+    return A
+
 def gaussian_elimination(A_, delim=None, doc=vdoc):
     m, n = A_.shape
     l = min(m,n)
@@ -36,10 +47,7 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
     doc.line(r"&")
 
     # Convert to Fraction
-    A = np.array(A_, dtype=Fraction)
-    for i in range(m):
-        for j in range(n):
-            A[i,j] = Fraction(A[i,j])
+    A = convert_matrix_decimal(A_)
 
 
     for col in range(l):
@@ -131,10 +139,7 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
         return None
 
     # Convert to Fraction
-    A = np.array(A_, dtype=Fraction)
-    for i in range(m):
-        for j in range(n):
-            A[i,j] = Fraction(A[i,j])
+    A = convert_matrix_decimal(A_)
 
     if n == 2:
         doc.line(r"\[")
@@ -181,3 +186,4 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
     doc.from_subdoc(subdoc)
 
     return d
+
