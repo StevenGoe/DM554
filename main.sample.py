@@ -14,6 +14,7 @@ b = np.array([[2], [5], [0]])
 AI = np.concatenate((A, np.identity(min(A.shape))), axis=1)
 Ab = np.concatenate((A, b), axis=1)
 
+print(determinant(A,1, "col",doc=doc))
 print(inverse_cofactor(A, doc=doc))
 
 B = gaussian_elimination(Ab, delim=min(A.shape)-1, doc=doc)

@@ -156,11 +156,12 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
 
     # Cofactor expansion
     if axis == "row":
-        line = A[:, index]
-    elif axis == "col":
         line = A[index, :]
+    elif axis == "col":
+        line = A[:, index]
     else:
         print("Error: Invalid axis %s" % axis)
+        return
 
     subdoc = doc.subdoc()
 
@@ -170,7 +171,10 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
     
     d = Fraction(0)
     for i, a in enumerate(line):
-        M = minor_matrix(A, index, i)
+        if axis == "row":
+            M = minor_matrix(A, index, i)
+        elif axis == "col":
+            M = minor_matrix(A, i, index)
         dM = determinant(M)
         sign = -1 if (index + i) % 2 == 1 else 1
         d += sign * a * dM
