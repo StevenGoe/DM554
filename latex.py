@@ -59,6 +59,11 @@ class LatexDocument:
     def line(self, s = ""):
         self.lines.append(s)
 
+    def write(self, s = "", prefix = " ", postfix = " "):
+        if len(self.lines) == 0:
+            self.line()
+        self.lines[-1] += (prefix + s + postfix)
+
     def skip(self, size = "med"):
         self.line()
         if size == "med" or size == "medium":
@@ -154,6 +159,8 @@ class LatexDocumentVoid(LatexDocument):
     def __init__(self, *args):
         pass
     def line(self, *args):
+        pass
+    def write(self, *args):
         pass
     def render(self, *args):
         return ""
