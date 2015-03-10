@@ -3,26 +3,34 @@ from fractions import Fraction
 
 from latex import *
 
+count = 0
+width = 2
+
 def gaussian_elimination(A_, delim=None, doc=vdoc):
     m, n = A_.shape
     l = min(m,n)
 
+    global count
     count = 0
-    width = 2
+
+    one  = Fraction(1)
+    zero = Fraction(0)
+
+    singular = False
 
     def matrix_arrow():
-        nonlocal count
-        nonlocal width
+        #nonlocal count
+        #nonlocal width
+        global count
+        global width
         count += 1
         if count >= width:
             count %= width
             doc.line(r" \\ ")
             doc.line(r"\rightarrow &")
         else:
-            doc.line(r"& \rightarrow")
+            doc.line(r"& \rightarrow &")
 
-    one  = Fraction(1)
-    zero = Fraction(0)
 
     doc.line(r"\begin{align*}")
     doc.line(r"&")
@@ -51,12 +59,8 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
             matrix_arrow()
 
         if p == zero:
-            print("Matrix has a row or column of zeroes")
-            doc.line(r"\end{align*}")
-            doc.line(r"As we can see the matrix has a row")
-            doc.line(r"or column of zeroes, thus we cannot proceed")
-            doc.line(r"with gaussian elimination")
-            return None
+            singular = True
+            break
 
         if p != one:
             doc.matrix(A, delim=delim, rowops=[
@@ -76,7 +80,7 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
             for j in range(n): # Add row to another row
                 A[other_row,j] += d * A[row, j]
 
-            if d != zero:
+            if d != zero and A_old[row, col] != zero:
                 ops.append(r"\add[%s]{%d}{%d}" % (doc.frac(d), row, other_row))
 
         if len(ops) > 0:
@@ -98,7 +102,7 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
             for j in range(n): # Add row to another row
                 A[other_row,j] += d * A[row, j]
 
-            if d != zero:
+            if d != zero and A_old[row, col] != zero:
                 ops.append(r"\add[%s]{%d}{%d}" % (doc.frac(d), row, other_row))
 
         if len(ops) > 0:
@@ -108,5 +112,10 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
     doc.matrix(A, delim=delim)
 
     doc.line(r"\end{align*}")
+
+    if singular:
+        print("Matrix has a row or column of zeroes")
+
+        doc.line(r"As we can see the matrix is singular.")
 
     return A

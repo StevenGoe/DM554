@@ -9,7 +9,7 @@ doc = LatexDocument("document")
 
 A = np.array([[0, 1, 2],
               [3, 4, 9],
-              [6, 2, 4]])
+              [3, 4, 9]])
 AI = np.concatenate((A, np.identity(min(A.shape))), axis=1)
 
 B = gaussian_elimination(AI, delim=min(A.shape)-1, doc=doc)
