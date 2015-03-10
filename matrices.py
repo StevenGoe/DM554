@@ -222,3 +222,23 @@ def adjoint(A, doc=vdoc):
     doc.line(r"\]")
     return CT
 
+def inverse_cofactor(A, doc=vdoc):
+    d = determinant(A, doc=doc)
+
+    if d == Fraction(0):
+        print("Determinant is zero. Inverse does not exist.")
+        return None
+
+    Adj = adjoint(A, doc=doc)
+    Inv = np.copy(Adj)
+    Inv[:,:] *= Fraction(1, d)
+
+    doc.line(r"\[")
+    doc.line(r"A^{-1} = \frac{1}{|A|} \adj(A) = ")
+    doc.line(r"%s \cdot " % doc.frac(Fraction(1,d)))
+    doc.matrix(Adj)
+    doc.line(r" = ")
+    doc.matrix(Inv)
+    doc.line(r"\]")
+
+    return Inv
