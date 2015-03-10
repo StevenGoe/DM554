@@ -30,6 +30,9 @@ class LatexDocument:
             \usepackage{amsmath}
             \usepackage{amssymb}
 
+            % Math macros
+            \newcommand{\adj}{\mathrm{adj}}
+
             % Gaussian Elimination
             \usepackage{gauss}
 

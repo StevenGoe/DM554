@@ -212,3 +212,13 @@ def cofactors(A_, doc=vdoc):
     doc.line(r"\]")
 
     return C
+
+def adjoint(A, doc=vdoc):
+    C = cofactors(A, doc=doc)
+    CT = C.T
+    doc.line(r"\[")
+    doc.line(r"\adj(A) = ")
+    doc.matrix(CT)
+    doc.line(r"\]")
+    return CT
+
