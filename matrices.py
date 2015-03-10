@@ -145,8 +145,11 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
         doc.line(r"\[")
         doc.matrix(A, typ="v")
         d = A[0,0] * A[1,1] - A[1,0] * A[0,1]
-        doc.line(r"= %d \cdot %d - %d \cdot %d" % (A[0,0], A[1,1], A[1,0], A[0,1]))
-        doc.line(r"= %d" % d)
+        doc.line(r"= %s \cdot %s - %s \cdot %s" % (
+            doc.frac(A[0,0]), doc.frac(A[1,1]),
+            doc.frac(A[1,0]), doc.frac(A[0,1]))
+        )
+        doc.line(r"= %s" % doc.frac(d))
         doc.line(r"\]")
         return d
 
@@ -177,9 +180,9 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
             sign_str = "+"
         else:
             sign_str = ""
-        subdoc.line(r"%s%d \cdot " % (sign_str, a))
+        subdoc.line(r"%s%s \cdot " % (sign_str, doc.frac(a)))
         subdoc.matrix(M, typ="v")
-    subdoc.line(r"= %d" % d)
+    subdoc.line(r"= %s" % doc.frac(d))
 
     subdoc.line(r"\]")
 
