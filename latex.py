@@ -56,6 +56,9 @@ class LatexDocument:
         """)
         self.lines = []
 
+    def subdoc(self):
+        return LatexDocument("%s-sub" % self.filename)
+
     def line(self, s = ""):
         self.lines.append(s)
 
@@ -63,6 +66,10 @@ class LatexDocument:
         if len(self.lines) == 0:
             self.line()
         self.lines[-1] += (prefix + s + postfix)
+
+    def from_subdoc(self, doc):
+        for line in doc.lines:
+            self.line(line)
 
     def skip(self, size = "med"):
         self.line()

@@ -154,9 +154,11 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
     else:
         print("Error: Invalid axis %s" % axis)
 
-    doc.line(r"\[")
-    doc.matrix(A, typ="v")
-    doc.line(r" = ")
+    subdoc = doc.subdoc()
+
+    subdoc.line(r"\[")
+    subdoc.matrix(A, typ="v")
+    subdoc.line(r" = ")
     
     d = Fraction(0)
     for i, a in enumerate(line):
@@ -170,10 +172,12 @@ def determinant(A_, index=0, axis="row", doc=vdoc):
             sign_str = "+"
         else:
             sign_str = ""
-        doc.line(r"%s%d \cdot " % (sign_str, a))
-        doc.matrix(M, typ="v")
-    doc.line(r"= %d" % d)
+        subdoc.line(r"%s%d \cdot " % (sign_str, a))
+        subdoc.matrix(M, typ="v")
+    subdoc.line(r"= %d" % d)
 
-    doc.line(r"\]")
+    subdoc.line(r"\]")
+
+    doc.from_subdoc(subdoc)
 
     return d
