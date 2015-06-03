@@ -79,7 +79,7 @@ def gaussian_elimination(A_, delim=None, doc=vdoc):
             matrix_arrow()
 
         # Convert pivot to 1
-        A[row,:] *= 1 / p #Fraction(1,p) # Multiply row by scalar
+        A[row,:] *= 1 / p # Multiply row by scalar
 
         A_old = np.copy(A)
         ops = []
@@ -237,11 +237,11 @@ def inverse_cofactor(A, doc=vdoc):
 
     Adj = adjoint(A, doc=doc)
     Inv = np.copy(Adj)
-    Inv[:,:] *= 1 / d #Fraction(1, d)
+    Inv[:,:] *= 1 / d
 
     doc.line(r"\[")
     doc.line(r"A^{-1} = \frac{1}{|A|} \adj(A) = ")
-    doc.line(r"%s \cdot " % doc.mathExp(1 / d)) #Fraction(1,d)))
+    doc.line(r"%s \cdot " % doc.mathExp(1 / d))
     doc.matrix(Adj)
     doc.line(r" = ")
     doc.matrix(Inv)
