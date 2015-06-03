@@ -2,7 +2,7 @@ import numpy as np
 from fractions import Fraction
 import sympy
 
-from latex import *
+from Util.latex import *
 
 count = 0
 width = 2

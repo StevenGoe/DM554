@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import numpy as np
+from Util.latex import *
+from LinAlg.matrices import *
 
-from latex import *
-from matrices import *
+import numpy as np
 import sympy
 
 doc = LatexDocument("document")
