@@ -4,6 +4,8 @@ import subprocess
 import os
 import errno
 import numpy as np
+import sympy
+from fractions import Fraction
 
 # Version: 0.1
 
@@ -99,7 +101,7 @@ class LatexDocument:
         for i in range(m):
             l = []
             for j in range(n):
-                l.append(self.frac(A[i,j]))
+                l.append(self.mathExp(A[i,j]))
                 if j == delim:
                     l.append(r"\BAR")
             self.line(" & ".join(l) + (newline if i < m-1 else ""))
@@ -117,6 +119,11 @@ class LatexDocument:
         else:
             sign = -1 if f < 0 else 1
             return r"%s\frac{%d}{%d}" % ("-" if sign == -1 else "", sign * f.numerator, f.denominator)
+
+    def mathExp(self, exp):
+        if isinstance(exp, Fraction):
+            return self.frac(exp)
+        return str(exp)
 
     def render(self):
         preambleDict = {}
