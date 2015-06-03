@@ -31,6 +31,8 @@ class LatexDocument:
             % Math
             \usepackage{amsmath}
             \usepackage{amssymb}
+            \usepackage{amstext}
+            \usepackage{array}
 
             % Math macros
             \newcommand{\adj}{\mathrm{adj}}
