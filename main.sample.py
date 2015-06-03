@@ -9,13 +9,12 @@ import numpy as np
 doc = LatexDocument("document")
 
 A = np.array([[5, 10, 1, 0],
-              [4,  4, 0, 1]])
-b = np.array([60, 40])
+              [4,  4, 0, 1]], dtype="float64")
+b = np.array([60, 40], dtype="float64")
 
-obj = np.array([6,8,0,0])
+obj = np.array([6,8,0,0], dtype="float64")
 
 tableau = Tableau(A,b,obj)
-print(tableau.toArray())
 
 result = simplex(tableau, doc)
 
