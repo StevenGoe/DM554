@@ -2,6 +2,7 @@
 
 from Util.latex import *
 #from LinAlg.matrices import *
+from LP.tableau import *
 from LP.simplex import *
 
 import numpy as np
