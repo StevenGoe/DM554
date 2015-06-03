@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from Util.latex import *
 #from LinAlg.matrices import *
@@ -18,8 +18,6 @@ obj = np.array([6,8,0,0], dtype="float64")
 tableau = Tableau(A,b,obj)
 
 result = simplex(tableau, doc)
-
-print(result)
 
 doc.compile() # Generate and compile a tex file in a folder
 #doc.to_file() # Only generate

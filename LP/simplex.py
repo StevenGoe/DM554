@@ -50,7 +50,6 @@ def simplex(tableau, doc=vdoc):
             if a_is > 0:
                 b_i = tableau.b[i,0]
                 ratio = b_i / a_is
-                print(ratio)
                 if pivot_row_val is None or ratio < pivot_row_val:
                     pivot_row = i
                     pivot_row_val = ratio
