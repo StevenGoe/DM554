@@ -15,6 +15,9 @@ class LatexDocument:
         self.ext = "tex"
         self.preambleTemplate = self.prepareLatex(r"""
             \documentclass[12pt, a4paper]{article}
+
+            % Graphics
+            \usepackage{graphicx}
             
             % Font & text
             \usepackage{times}
