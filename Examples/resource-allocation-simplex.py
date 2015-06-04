@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
+# COPY TO main.py IN PARENT FOLDER FOR EXAMPLE TO WORK
+
 from Util.latex import *
-#from LinAlg.matrices import *
 from LP.tableau import *
 from LP.simplex import *
 
