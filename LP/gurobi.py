@@ -4,7 +4,17 @@ import matplotlib.pyplot as plt
 from Util.matrices import *
 
 def model_to_matrix(model):
-    pass
+    m = model.getAttr("NumConstrs")
+    n = model.getAttr("NumVars")
+
+    matrix = np.zeros((m,n))
+
+    for i, c in enumerate(model.getConstrs()):
+        for j, v in enumerate(model.getVars()):
+            coef = model.getCoeff(c,v)
+            matrix[i,j] = coef
+
+    return matrix
 
 def plot_matrix(matrix_):
     matrix = np.array(matrix_, copy=True, dtype=float)
