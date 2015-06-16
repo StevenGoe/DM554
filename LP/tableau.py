@@ -30,7 +30,7 @@ class Tableau:
         self.z_col = np.zeros((self.m+1,1))
         self.z_col[self.m,0] = 1
         self.objVal = 0
-        self.n_slack_vars = int(self.n / 2)
+        self.n_slack_vars = self.m
 
     def toArray(self):
         objVal_elem = np.array([[self.objVal]])
