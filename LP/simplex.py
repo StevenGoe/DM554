@@ -19,8 +19,21 @@ def simplex(tableau, doc=vdoc):
 
     iteration = 0
 
-    # Find the initial basis / BFS (as column indices)
-    basis = list(range(tableau.n_slack_vars, tableau.n))
+    # Find the initial basis / BFS
+    basis = []
+    for i in range(tableau.n):
+        if tableau.obj[0,i] == 0:
+            col = tableau.A[:,i]
+            one_count = 0
+            zero_count = 0
+            for elem in col:
+                if elem == 1: one_count  += 1
+                if elem == 0: zero_count += 1
+            if one_count == 1 and zero_count == tableau.m-1:
+                basis.append(i)
+
+    if len(basis) != tableau.m:
+        print("Basis has %d elements, but number of constraints is %d." % (len(basis), tableau.m))
 
     doc.line(r"Initial tableau:")
 
