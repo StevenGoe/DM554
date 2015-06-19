@@ -16,6 +16,14 @@ def simplex(tableau, doc=vdoc):
         return r"\{ %s \}" % s
 
 
+    if np.any(tableau.b < 0):
+        print("A value in the b column is negative, i.e. we have an infeasible starting solution.")
+        print("Now the dual simplex should be applied to regain feasibility.")
+        print("However, this implementation does not feature the dual simplex, so it must be done manually.")
+        return
+
+    if np.any(tableau.b == 0):
+        print("The tableau has degeneracies, i.e. a value in the b column is zero. Strange things might happen.")
 
     iteration = 0
 
