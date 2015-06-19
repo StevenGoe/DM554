@@ -287,3 +287,9 @@ def one_zero_col(A,row,col, use_fraction=True):
     one_at_pivot(A,row,col, use_fraction)
     zero_around_row(A, row, col, use_fraction)
     return A
+
+def subset_rows(A,row_list):
+    return A[row_list,:]
+
+def subset_cols(A,col_list):
+    return A[:,col_list]
