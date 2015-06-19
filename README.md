@@ -24,5 +24,4 @@ Implement:
 
 - Better way to construct tableau for homemade simplex
 - Revised simplex
-- Network flow solvers (min cost, max flow, min cut)
 - Templates for LP models in Gurobi
