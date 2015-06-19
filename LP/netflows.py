@@ -1,8 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-print("Verify that Networkx version is 1.9.1 and above.")
-print("Networkx version is: %s" % nx.__version__)
+if __name__ == "__main__":
+    print("Verify that Networkx version is 1.9.1 and above.")
+    print("Networkx version is: %s" % nx.__version__)
 
 # === Helper functions ===
 # Scroll down to network definition
@@ -50,23 +51,25 @@ def draw_graph(G, flow_dict={}):
 #G.add_node('a', demand = -5) # demand: balance
 #G.add_edge('a', 'b', weight = 3, capacity = 4) # Creates edge with 0/x/capacity, weight
 
-G = nx.DiGraph()
-G.add_node('s', demand=-5)
-G.add_edge('s','a', capacity=3.0)
-G.add_edge('s','b', capacity=1.0)
-G.add_edge('a','c', capacity=3.0)
-G.add_edge('b','c', capacity=5.0)
-G.add_edge('b','d', capacity=4.0)
-G.add_edge('d','e', capacity=2.0)
-G.add_edge('c','t', capacity=2.0)
-G.add_edge('e','t', capacity=3.0)
+def example_graph():
+    G = nx.DiGraph()
+    G.add_node('s', demand=-5)
+    G.add_edge('s','a', capacity=3.0)
+    G.add_edge('s','b', capacity=1.0)
+    G.add_edge('a','c', capacity=3.0)
+    G.add_edge('b','c', capacity=5.0)
+    G.add_edge('b','d', capacity=4.0)
+    G.add_edge('d','e', capacity=2.0)
+    G.add_edge('c','t', capacity=2.0)
+    G.add_edge('e','t', capacity=3.0)
+    return G
 
 # === Network drawing ===
 
 # Write this in IPython (without the #)
 #%matplotlib inline
 
-draw_graph(G)
+#draw_graph(G)
 
 # Note: matplotlib draws bolded stubs instead of arrow heads.
 
@@ -74,10 +77,10 @@ draw_graph(G)
 
 # --- Max flow ---
 
-flow_value, flow_dict = nx.maximum_flow(G, 's', 't')
+#flow_value, flow_dict = nx.maximum_flow(G, 's', 't')
 
-print("Max flow value: %g" % flow_value)
-print("Max flow solution: %s" % str(flow_dict))
+#print("Max flow value: %g" % flow_value)
+#print("Max flow solution: %s" % str(flow_dict))
 
 # Alternatively, use Ford-Fulkerson alg:
 #flow_dict = nx.ford_fulkerson_flow(G, 's', 't')
@@ -100,4 +103,4 @@ print("Max flow solution: %s" % str(flow_dict))
 
 # === Draw result with flow ===
 
-draw_graph(G, flow_dict)
+#draw_graph(G, flow_dict)

@@ -1,20 +1,24 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+
+# Recommended: Open this in IPython interactively
+#   ipython -i main.py
+# Alternatively, write program here and run
+#   python main.py
 
 from Util.latex import *
+from Util.matrices import *
+from LinAlg.matrices import *
 from LP.gurobi import *
+from LP.simplex import *
+from LP.tableau import *
+from LP.netflows import *
 
 import numpy as np
+from fractions import Fraction as frac
 
 doc = LatexDocument("document")
 
 
-# Your script and calculations here
 
-
-A = np.array([[5, 10, 1, 0],
-              [4,  4, 0, 1]])
-
-plot_matrix(A)
-
-doc.compile() # Generate and compile a tex file in a folder
+#doc.compile() # Generate and compile a tex file in a folder
 #doc.to_file() # Only generate
