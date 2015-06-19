@@ -59,11 +59,14 @@ class Tableau:
         return str(self.toArray())
 
     @staticmethod
-    def slice(matrix):
+    def slice(matrix, return_tableau=False):
         rows, cols = matrix.shape
         A = matrix[:-1,:-2]
         b = matrix[:-1,-1]
         obj = matrix[-1,:-2]
         objVal = matrix[-1,-1]
-        tableau = Tableau(A,b,obj,objVal)
-        return tableau
+        if return_tableau:
+            tableau = Tableau(A,b,obj,objVal)
+            return tableau
+        else:
+            return (A,b,obj,objVal)
