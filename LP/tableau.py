@@ -1,4 +1,5 @@
 from Util.latex import *
+from Util.matrices import *
 
 import numpy as np
 
@@ -56,7 +57,7 @@ class Tableau:
         return block_start + "\n" + "\n".join(lines) + "\n" + block_end
 
     def __str__(self):
-        return str(self.toArray())
+        return tableau_to_str(self.toArray())
 
     @staticmethod
     def slice(matrix, return_tableau=False):

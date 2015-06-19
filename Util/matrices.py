@@ -60,7 +60,7 @@ def printm(a):
     p = vectorize(p,otypes=[str])
     print(p(a))
 
-def tableau_to_ascii(a,W=7):
+def tableau_to_str(a,W=7):
     """Returns a string for verbatim printing
     :a: numpy array
     :returns: a string
@@ -79,4 +79,8 @@ def tableau_to_ascii(a,W=7):
     i = a.shape[0]-1
     rv += [r'| '+' | '.join(['{0:>{width}}'.format(str(a[i,j]),width=W-2) for j in range(a.shape[1])])+" |"]
     rv+=[r'|'+'+'.join('{:-^{width}}'.format('',width=W) for i in range(a.shape[1]))+"+"]
-    print('\n'.join(rv))
+    s = '\n'.join(rv)
+    return s
+
+def print_tableau(a,W=7):
+    print(tableau_to_str(a,W))
