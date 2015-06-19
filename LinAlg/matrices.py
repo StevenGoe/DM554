@@ -248,3 +248,42 @@ def inverse_cofactor(A, doc=vdoc):
     doc.line(r"\]")
 
     return Inv
+
+# === Row operations ===
+
+def mult_row(A,row,num):
+    A[row,:] *= num
+    return A
+
+def swap_rows(A,row1,row2):
+    A[[row1, row2],:] = A[[row2, row1],:]
+    return A
+
+def add_row_to_row(A, row1, c, row2):
+    m,n = A.shape
+    for j in range(n):
+        A[row2,j] += c * A[row1, j]
+    return A
+
+def one_at_pivot(A,row,col, use_fraction=True):
+    pivot = A[row,col]
+    if use_fraction:
+        mult_row(A,row, Fraction(1, pivot))
+    else:
+        mult_row(A,row, 1.0 / pivot)
+    return A
+
+def zero_around_row(A,row,col, use_fraction=True):
+    m,n = A.shape
+    pivot = A[row,col]
+    for i in range(m):
+        if i != row:
+            d = A[i,col]
+            add_row_to_row(A,row, -(d / pivot), i)
+    return A
+
+def one_zero_col(A,row,col, use_fraction=True):
+    pivot = A[row,col]
+    one_at_pivot(A,row,col, use_fraction)
+    zero_around_row(A, row, col, use_fraction)
+    return A
