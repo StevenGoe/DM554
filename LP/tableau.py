@@ -3,7 +3,7 @@ from Util.latex import *
 import numpy as np
 
 class Tableau:
-    def __init__(self, A, b, obj):
+    def __init__(self, A, b, obj, objVal = 0):
         # Make sure that all input is 2-dim
         if len(A.shape) == 1:
             A = np.array([A])
@@ -29,7 +29,7 @@ class Tableau:
         self.obj = obj
         self.z_col = np.zeros((self.m+1,1))
         self.z_col[self.m,0] = 1
-        self.objVal = 0
+        self.objVal = objVal
         self.n_slack_vars = self.m
 
     def toArray(self):
@@ -57,3 +57,13 @@ class Tableau:
 
     def __str__(self):
         return str(self.toArray())
+
+    @staticmethod
+    def slice(matrix):
+        rows, cols = matrix.shape
+        A = matrix[:-1,:-2]
+        b = matrix[:-1,-1]
+        obj = matrix[-1,:-2]
+        objVal = matrix[-1,-1]
+        tableau = Tableau(A,b,obj,objVal)
+        return tableau
