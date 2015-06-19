@@ -18,6 +18,13 @@ pip install -r dependencies.txt
 
 ## Usage
 
+The recommended way of using this repo is to open `main.py` in IPython interactively:
+
+```
+ipython -i main.py
+```
+
+
 ## TODO
 
 Implement:
