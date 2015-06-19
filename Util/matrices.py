@@ -1,7 +1,45 @@
+import re
 import numpy as np
 from numpy import *
 from fractions import Fraction as f
 set_printoptions(precision=3,suppress=True)
+
+def load_matrix(filename="matrix.txt"):
+    split_by = r'\s+' # Any whitespace
+    lines = [line.strip() for line in open(filename)]
+    rows = len(lines)
+    cols = 0
+    for line in lines:
+        s = re.split(split_by, line)
+        if len(s) > cols:
+            cols = len(s)
+
+    A = np.zeros((rows, cols), dtype=f)
+
+    for row, line in enumerate(lines):
+        s = re.split(split_by, line)
+        for col, elem in enumerate(s):
+            if len(elem) == 0:
+                print("Empty elem at row %d, col %d" % (row,col))
+                return
+            negative   = elem[0] is "-"
+            rest       = elem[1:] if negative else elem
+            floating   = "." in rest
+            fractional = "/" in rest
+            if floating and fractional:
+                print("Apparently, number at row %d, col %d is both floating and fractional." % (row,col))
+                return
+            if floating:
+                A[row,col] = float(rest)
+            elif fractional:
+                numerator, denominator = rest.split("/")
+                A[row,col] = f(int(numerator), int(denominator))
+            else:
+                A[row,col] = int(rest)
+            if negative:
+                A[row,col] *= -1
+    return A
+
 
 def convert_zeros_to_nan(matrix, allowed_error = 0.001):
     height, width = matrix.shape
