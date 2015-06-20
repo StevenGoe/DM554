@@ -29,7 +29,7 @@ def show_model_solution(model, var_dict=None):
     else:
         var_list = var_dict.values()
 
-    for var in var_list
+    for var in var_list:
         print("%s: %g" % (var.varName, var.x))
 
 
