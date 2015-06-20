@@ -167,6 +167,35 @@ Will combine the previous two operations to get a 1 at the pivot and zeroes abov
 
 ### Gurobi modeling
 
+As few handy functions have been added to allow for fast prototyping of Gurobi models.
+
+For instance, given a model `m` a pool of variables of a given type can be created as follows:
+
+```
+x = gen_vars(m, 5, vtype=GRB.BINARY)
+```
+
+`x` will then be a dictionary of variables indexed as `x[3]` to get the third variables (one-indexed for once).
+It is also possible to get a two dimensional dict by `x = gen_vars(m, 5, 3)` indexed as `x[1,2]`.
+
+Once a model has been optimized, it is possible to display the value of the variables 
+(handy in case of branch and bounds questions) as follows:
+
+```
+show_model_solution(m, x)
+```
+
+or simply
+
+```
+show_model_solution(m)
+```
+
+to show all vars.
+
+Lastly, there is a function `one_to(n)` which gives a list of 1 to n.
+
+
 ### Network flows
 
 Define a graph as follows:
