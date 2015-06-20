@@ -16,7 +16,7 @@ from LP.revisedsimplex import *
 
 import numpy as np
 from fractions import Fraction as frac
-from sympy import *
+import sympy as sy
 
 doc = LatexDocument("document")
 

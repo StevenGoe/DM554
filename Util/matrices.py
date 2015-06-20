@@ -2,9 +2,10 @@ import re
 import numpy as np
 from numpy import *
 from fractions import Fraction as f
+import sympy
 set_printoptions(precision=3,suppress=True)
 
-def load_matrix(filename="matrix.txt"):
+def load_matrix(filename="matrix.txt", dtype="symbolic"):
     split_by = r'\s+' # Any whitespace
     lines = [line.strip() for line in open(filename)]
     rows = len(lines)
@@ -14,7 +15,10 @@ def load_matrix(filename="matrix.txt"):
         if len(s) > cols:
             cols = len(s)
 
-    A = np.zeros((rows, cols), dtype=f)
+    if dtype == "symbolic":
+        A = np.zeros((rows, cols), dtype=np.object)
+    else:
+        A = np.zeros((rows, cols), dtype=dtype)
 
     for row, line in enumerate(lines):
         s = re.split(split_by, line)
@@ -22,22 +26,10 @@ def load_matrix(filename="matrix.txt"):
             if len(elem) == 0:
                 print("Empty elem at row %d, col %d" % (row,col))
                 return
-            negative   = elem[0] is "-"
-            rest       = elem[1:] if negative else elem
-            floating   = "." in rest
-            fractional = "/" in rest
-            if floating and fractional:
-                print("Apparently, number at row %d, col %d is both floating and fractional." % (row,col))
-                return
-            if floating:
-                A[row,col] = float(rest)
-            elif fractional:
-                numerator, denominator = rest.split("/")
-                A[row,col] = f(int(numerator), int(denominator))
+            if dtype == "symbolic":
+                A[row,col] = sympy.S(elem)
             else:
-                A[row,col] = int(rest)
-            if negative:
-                A[row,col] *= -1
+                A[row,col] = elem
     return A
 
 

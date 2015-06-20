@@ -268,7 +268,7 @@ def add_row_to_row(A, row1, c, row2):
 def one_at_pivot(A,row,col, use_fraction=True):
     pivot = A[row,col]
     if use_fraction:
-        mult_row(A,row, Fraction(1, pivot))
+        mult_row(A,row, sympy.S(1) / pivot)
     else:
         mult_row(A,row, 1.0 / pivot)
     return A
