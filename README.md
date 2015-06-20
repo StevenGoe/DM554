@@ -121,6 +121,50 @@ where a,b,c is the (zero-indexed) indices of the columns corresponding to the va
 
 ### Row operations
 
+If one wants to do row operations (for instance to do the simplex step by step or do the dual simplex)
+it is possible to do so as follows:
+
+```
+swap_rows(mat, 0, 2)
+```
+
+Swaps the first and third row of a matrix.
+
+```
+mult_row(mat, 1, 5)
+```
+
+Multiplies the second row by 5.
+
+```
+add_row_to_row(mat, 0, 8, 1)
+```
+
+Adds the first row multiplied by 8 to the second row.
+
+There are also a couple of high-level operations, for instance
+
+```
+one_at_pivot(mat, 0, 0)
+```
+
+will take the elem of the first row and first column as pivot and divide the first row by this
+to obtain a 1 in that position.
+
+```
+zero_around_row(mat, 1, 1)
+```
+
+Will take a pivot as before and add the row of the pivot to the rows above and below to obtain
+zeros above and below it.
+
+```
+one_zero_col(mat, 0, 1)
+```
+
+Will combine the previous two operations to get a 1 at the pivot and zeroes above and below.
+
+
 ### Gurobi modeling
 
 ### Network flows
