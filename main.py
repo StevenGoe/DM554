@@ -17,6 +17,7 @@ from LP.revisedsimplex import *
 import numpy as np
 from fractions import Fraction as frac
 import sympy as sy
+import networkx as nx
 
 doc = LatexDocument("document")
 
