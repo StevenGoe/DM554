@@ -62,10 +62,21 @@ class Tableau:
     @staticmethod
     def slice(matrix, return_tableau=False):
         rows, cols = matrix.shape
+
         A = matrix[:-1,:-2]
         b = matrix[:-1,-1]
         obj = matrix[-1,:-2]
         objVal = matrix[-1,-1]
+
+        if len(A.shape) == 1:
+            A = np.array([A])
+
+        if len(b.shape) == 1:
+            b = np.array([b]).T
+
+        if len(obj.shape) == 1:
+            obj = np.array([obj])
+
         if return_tableau:
             tableau = Tableau(A,b,obj,objVal)
             return tableau

@@ -179,7 +179,7 @@ class LatexDocument:
 
 class LatexDocumentVoid(LatexDocument):
     def __init__(self, *args):
-        pass
+        self.filename = "void-document"
     def line(self, *args):
         pass
     def write(self, *args):

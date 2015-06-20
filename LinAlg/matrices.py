@@ -14,8 +14,9 @@ def convert_matrix_decimal(A_):
     A = np.array(A_, dtype=Fraction)
     for i in range(m):
         for j in range(n):
-            if not isinstance(A[i,j], sympy.Symbol):
-                A[i,j] = Fraction(A[i,j])
+            A[i,j] = sympy.S(A[i,j])
+            #if not isinstance(A[i,j], sympy.Symbol):
+            #    A[i,j] = Fraction(A[i,j])
 
     return A
 
