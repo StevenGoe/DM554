@@ -23,6 +23,16 @@ def gen_vars(model, n1, n2=None, letter="x", vtype=GRB.CONTINUOUS):
                 d[i,j] = model.addVar(name=name, vtype=vtype)
     return d
 
+def show_model_solution(model, var_dict=None):
+    if var_dict is None:
+        var_list = model.getVars()
+    else:
+        var_list = var_dict.values()
+
+    for var in var_list
+        print("%s: %g" % (var.varName, var.x))
+
+
 
 def model_to_matrix(model):
     m = model.getAttr("NumConstrs")
