@@ -8,9 +8,9 @@ if __name__ == "__main__":
 # === Helper functions ===
 # Scroll down to network definition
 
-def edges_to_labels(edges, flow_dict={}):
+def edges_to_labels(G, flow_dict={}):
     d = dict()
-    for e in edges:
+    for e in G.edges():
         edge = G.edge[e[0]][e[1]]
         lb   = "%g" % 0
         cap  = ("%g" % edge["capacity"]) if "capacity" in edge else "inf"
@@ -22,9 +22,9 @@ def edges_to_labels(edges, flow_dict={}):
         d[e] = "%s/%s/%s, %s" % (lb, sol, cap, cost)
     return d
 
-def nodes_to_labels(nodes):
+def nodes_to_labels(G):
     d = dict()
-    for n in nodes:
+    for n in G.nodes():
         node = G.node[n]
         bal  = ("%g" % node["demand"]) if "demand" in node else "0"
         d[n] = bal
@@ -33,12 +33,12 @@ def nodes_to_labels(nodes):
 def draw_graph(G, flow_dict={}):
     pos = nx.spectral_layout(G)
     nx.draw(G, pos = pos, with_labels=True)
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edges_to_labels(G.edges(), flow_dict))
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edges_to_labels(G, flow_dict))
     offset = (0.02, 0.07)
     for p in pos:
         pos[p][0] += offset[0]
         pos[p][1] += offset[1]
-    nx.draw_networkx_labels(G, pos, labels=nodes_to_labels(G.nodes()))
+    nx.draw_networkx_labels(G, pos, labels=nodes_to_labels(G))
 
     # Show
     #plt.draw()
