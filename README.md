@@ -3,7 +3,7 @@
 Useful scripts and material for the DM554 course and in particular the exam.
 
 The goal of this repo is to speed up parts of the exam,
-either with nifty tools and functions or with implemented algorihms with automatic LaTeX code generation.
+either with nifty tools and functions or with implemented algorithms with automatic LaTeX code generation.
 
 The repo consists of a couple of different part: 
 
@@ -55,13 +55,30 @@ or by editing the file matrix.txt and running
 mat = load_matrix()
 ```
 
-It is possible to print the tableau as ascii as follows
+If the matrix represents a tableau, it is possible to print the tableau as ascii as follows
 
 ```
 print_tableau(mat)
 ```
 
 which can then be inserted in LaTeX with the `verbatim` environment.
+
+It is also possible to output as LaTeX as follows:
+
+```
+tab = Tableau.slice(mat, True)
+print(tab.toLatex())
+```
+
+Here we use a slicer that slices the matrix into the individual parts of the tableau
+and creates a `Tableau` object to tie it all together.
+
+It is also possible to get the individual parts by
+
+```
+A,b,obj,objVal = Tableau.slice(mat)
+```
+
 
 
 The next course of action is generally up to the user. Some use cases include:
@@ -72,17 +89,80 @@ The repo comes with a (buggy) implementation of the simplex algorithm.
 It does no error handling, degeneracy check, cycle check nor does it have
 any of the smart pivoting rules (if a certain rule is needed, 
 it must be implemented in the function `default_pivot_rule` in the simplex file).
+There is also no implementation of the dual simplex, thus if the tableau
+has an infeasible start, the function will say so and terminate.
 It does however output every step to LaTeX.
 
 If a matrix `mat` have been loaded that represents a tableau (remember z column),
 then it must be sliced up into its components:
 
 ```
-tab = Tableau.slice(mat)
+tab = Tableau.slice(mat, True)
 ```
 
 Next, it must be fed to the simplex function:
 
 ```
 simplex(tab, doc=doc)
+```
+
+### Revised simplex
+
+A part of the revised simplex has been implemented. 
+It will take a tableau and a new basis and transition the tableau over to that basis.
+It writes the result to the screen and does not output LaTeX code.
+
+```
+revised_simplex(mat, [a,b,c,...])
+```
+
+where a,b,c is the (zero-indexed) indices of the columns corresponding to the variables
+(e.g. the corresponding column of x3 is the third one, meaning that its index is 2).
+
+### Row operations
+
+### Gurobi modeling
+
+### Network flows
+
+Define a graph as follows:
+
+```
+G = nx.DiGraph()
+G.add_node('s', demand=-5)
+G.add_edge('s','a', capacity=3.0)
+G.add_edge('s','b', capacity=1.0)
+...
+G.add_edge('e','t', capacity=3.0)
+```
+
+`demand` is the balance on a given node, and `capacity` is, well, the max capacity on the edge.
+
+Note: If a node has 0 balance, it is not required to add the node first using `add_node` (see above).
+
+It is possible to draw the graph using
+
+```
+draw_graph(G)
+```
+
+It will save a file called `plot-netflows.png` by default, but might also display the graph
+if you have used `%matplotlib inline` in IPython.
+
+Max flow can for instance be solved using
+
+```
+flow_value, flow_dict = nx.maximum_flow(G, 's', 't')
+
+print("Max flow value: %g" % flow_value)
+print("Max flow solution: %s" % str(flow_dict))
+```
+
+See LP/netflows.py for more functions and examples.
+
+Also once a `flow_dict` has been acquired, it is possible
+to also draw this to the graph using
+
+```
+draw_graph(G, flow_dict)
 ```
