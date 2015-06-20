@@ -245,32 +245,32 @@ draw_graph(G, flow_dict)
 Here is a list of all functions
 
 ```
-LinAlg/matrices.py:     def gaussian_elimination(A_, delim=None, doc=vdoc):
-LinAlg/matrices.py:     def minor_matrix(A, row, col, doc=vdoc):
-LinAlg/matrices.py:     def determinant(A_, index=0, axis="row", doc=vdoc):
-LinAlg/matrices.py:     def cofactors(A_, doc=vdoc):
-LinAlg/matrices.py:     def adjoint(A, doc=vdoc):
-LinAlg/matrices.py:     def inverse_cofactor(A, doc=vdoc):
-LinAlg/matrices.py:     def mult_row(A,row,num):
-LinAlg/matrices.py:     def swap_rows(A,row1,row2):
-LinAlg/matrices.py:     def add_row_to_row(A, row1, c, row2):
-LinAlg/matrices.py:     def one_at_pivot(A,row,col, use_fraction=True):
-LinAlg/matrices.py:     def zero_around_row(A,row,col, use_fraction=True):
-LinAlg/matrices.py:     def one_zero_col(A,row,col, use_fraction=True):
-LinAlg/matrices.py:     def subset_rows(A,row_list):
-LinAlg/matrices.py:     def subset_cols(A,col_list):
-LP/gurobi.py:           def one_to_(n): return range(n)
-LP/gurobi.py:           def gen_vars(model, n1, n2=None, letter="x", vtype=GRB.CONTINUOUS):
-LP/gurobi.py:           def show_model_solution(model, var_dict=None):
-LP/gurobi.py:           def model_to_matrix(model):
-LP/gurobi.py:           def plot_matrix(matrix_, doc=vdoc):
-LP/revisedsimplex.py:   def revised_simplex_to_basis(tableau, basis):
-LP/revisedsimplex.py:   def partition_basic_non_basic(A, basis):
-LP/netflows.py:         def draw_graph(G, flow_dict={}):
-LP/simplex.py:          def simplex(tableau, doc=vdoc):
-LP/tableau.py:          def slice(matrix, return_tableau=False):
-Util/matrices.py:       def load_matrix(filename="matrix.txt", dtype="symbolic"):
-Util/matrices.py:       def printm(a):
-Util/matrices.py:       def tableau_to_str(a,W=7):
-Util/matrices.py:       def print_tableau(a,W=7):
+LinAlg/matrices.py:     gaussian_elimination(A_, delim=None, doc=vdoc)
+LinAlg/matrices.py:     minor_matrix(A, row, col, doc=vdoc)
+LinAlg/matrices.py:     determinant(A_, index=0, axis="row", doc=vdoc)
+LinAlg/matrices.py:     cofactors(A_, doc=vdoc)
+LinAlg/matrices.py:     adjoint(A, doc=vdoc)
+LinAlg/matrices.py:     inverse_cofactor(A, doc=vdoc)
+LinAlg/matrices.py:     mult_row(A,row,num)
+LinAlg/matrices.py:     swap_rows(A,row1,row2)
+LinAlg/matrices.py:     add_row_to_row(A, row1, c, row2)
+LinAlg/matrices.py:     one_at_pivot(A,row,col, use_fraction=True)
+LinAlg/matrices.py:     zero_around_row(A,row,col, use_fraction=True)
+LinAlg/matrices.py:     one_zero_col(A,row,col, use_fraction=True)
+LinAlg/matrices.py:     subset_rows(A,row_list)
+LinAlg/matrices.py:     subset_cols(A,col_list)
+LP/gurobi.py:           one_to_(n): return range(n
+LP/gurobi.py:           gen_vars(model, n1, n2=None, letter="x", vtype=GRB.CONTINUOUS)
+LP/gurobi.py:           show_model_solution(model, var_dict=None)
+LP/gurobi.py:           model_to_matrix(model)
+LP/gurobi.py:           plot_matrix(matrix_, doc=vdoc)
+LP/revisedsimplex.py:   revised_simplex_to_basis(tableau, basis)
+LP/revisedsimplex.py:   partition_basic_non_basic(A, basis)
+LP/netflows.py:         draw_graph(G, flow_dict={})
+LP/simplex.py:          simplex(tableau, doc=vdoc)
+LP/tableau.py:          slice(matrix, return_tableau=False)
+Util/matrices.py:       load_matrix(filename="matrix.txt", dtype="symbolic")
+Util/matrices.py:       printm(a)
+Util/matrices.py:       tableau_to_str(a,W=7)
+Util/matrices.py:       print_tableau(a,W=7)
 ```
