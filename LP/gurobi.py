@@ -7,7 +7,7 @@ from Util.latex import *
 
 from gurobipy import *
 
-def one_to_(n): return range(n)
+def one_to_(n): return range(1, n+1)
 
 def gen_vars(model, n1, n2=None, letter="x", vtype=GRB.CONTINUOUS):
     d = dict()
@@ -21,6 +21,7 @@ def gen_vars(model, n1, n2=None, letter="x", vtype=GRB.CONTINUOUS):
             for j in one_to_(n2):
                 name = "%s%d%d" % (letter, i, j)
                 d[i,j] = model.addVar(name=name, vtype=vtype)
+    model.update()
     return d
 
 def show_model_solution(model, var_dict=None):
