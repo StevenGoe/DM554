@@ -5,6 +5,25 @@ import random
 from Util.matrices import *
 from Util.latex import *
 
+from gurobipy import *
+
+def one_to_(n): return range(n)
+
+def gen_vars(model, n1, n2=None, letter="x", vtype=GRB.CONTINUOUS):
+    d = dict()
+
+    if n2 == None:
+        for i in one_to_(n1):
+            name = "%s%d" % (letter, i)
+            d[i] = model.addVar(name=name, vtype=vtype)
+    else:
+        for i in one_to_(n1):
+            for j in one_to_(n2):
+                name = "%s%d%d" % (letter, i, j)
+                d[i,j] = model.addVar(name=name, vtype=vtype)
+    return d
+
+
 def model_to_matrix(model):
     m = model.getAttr("NumConstrs")
     n = model.getAttr("NumVars")
